@@ -3,6 +3,8 @@ import click
 import os
 import logging
 import sys
+from spark_starter import SparkStarter
+from hive_checker import HiveChecker
 
 class DataImporter:
   def __init__(self, data_directory, spark_home, force):
@@ -11,30 +13,12 @@ class DataImporter:
     self.force = force
 
   def create_tables(self):
-    import findspark
-    try:
-      findspark.init(self.spark_home)
-    except IndexError:
-      if self.spark_home:
-        click.echo(click.style('Fatal: looks like there was an error finding Spark. Check that --spark-home is pointing to the correct directory (see also https://github.com/minrk/findspark).', fg='red'))
-      else:
-        click.echo(click.style('Fatal: looks like there was an error finding Spark. You might have to manually specify your Spark directory with the --spark-home option.', fg='red'))
-      return
-
-    import pyspark
-    from pyspark.sql.session import SparkSession
-    sc = pyspark.SparkContext(appName="weThePeople")
-
-    from pyspark.sql import HiveContext
+    sc, sqlContext = SparkStarter(self.spark_home).start()
     from pyspark.sql.functions import col
-    sqlContext = HiveContext(sc)
-
+    
     # Check Hive is accessible
-    try:
-      sqlContext.sql("CREATE TABLE IF NOT EXISTS wtp_tmp_test (id int)")
-      sqlContext.sql("DROP TABLE IF EXISTS wtp_tmp_test")
-    except pyspark.sql.utils.AnalysisException:
-      click.echo(click.style("Fatal: couldn't connect to Hive. Ensure Hadoop is running and the Hive server (i.e. hiveserver2) is started.", fg='red'))
+    if not HiveChecker(sqlContext).check_connectivity():
+      return
 
     tables = ['wtp_data_signatures', 'wtp_data_petitions', 'wtp_data_states']
     if set(tables) < set(sqlContext.tables().rdd.map(lambda t: t.tableName).collect()) and not self.force:
@@ -55,6 +39,10 @@ class DataImporter:
     click.echo("\nImporting states data...")
     states_w_dc = sqlContext.read.csv(files['population.csv'], header = True).select("abb", "population")
     states = states_w_dc.filter("abb != 'DC'")
+
+    party_affiliation = sqlContext.read.csv(files['pvi_scores.csv']).select(col('_c0').alias('abb'), expr('SUBSTRING(_c4, 1, 1)').alias('party'))
+    states = states.alias("states").join(party_affiliation.alias("pa"), states.abb == party_affiliation.abb).select("states.*", "pa.party")
+
     states.write.mode("overwrite").saveAsTable("wtp_data_states")
     click.echo(click.style(u'✔ Success', fg='green'))
 

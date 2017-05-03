@@ -131,3 +131,4 @@ ENV/
 
 # Default data directory
 /data
+/spark-warehouse
