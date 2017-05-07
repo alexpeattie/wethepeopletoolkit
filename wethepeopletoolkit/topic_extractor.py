@@ -1,5 +1,5 @@
 import click
-from top_petitions import TopPetitions
+from wethepeopletoolkit.top_petitions import TopPetitions
 
 class TopicExtractor:
   def __init__(self, spark_home):

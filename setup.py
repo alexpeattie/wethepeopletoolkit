@@ -8,14 +8,14 @@ except ImportError:
 
 setup(
   name = "wethepeopletoolkit",
-  version = "1.5",
+  version = "1.6",
   author = "Alex Peattie",
   author_email = "me@alexpeattie.com",
   description = ("A project for analyzing and visualizing data from the Obama-era 'We the People' petitions site."),
   license = "MIT",
   keywords = "wethepeople petitions datascience analysis",
   url = "https://github.com/alexpeattie/wethepeopletoolkit",
-  download_url = 'https://github.com/alexpeattie/wethepeopletoolkit/archive/1.5.tar.gz',
+  download_url = 'https://github.com/alexpeattie/wethepeopletoolkit/archive/1.6.tar.gz',
   install_requires=[
     'bs4',
     'Click',
@@ -28,8 +28,11 @@ setup(
     'sklearn',
     'scipy'
   ],
-  py_modules=['wethepeopletoolkit'],
+  packages=['wethepeopletoolkit'],
+  package_data={
+    'wethepeopletoolkit': ['us_states.svg'],
+  },
   entry_points= {
-    'console_scripts': ['wethepeopletoolkit = wethepeopletoolkit:cli']
+    'console_scripts': ['wethepeopletoolkit = wethepeopletoolkit.main:cli']
   }
 )

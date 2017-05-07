@@ -1,15 +1,15 @@
 import click
 import os
-from downloader import Downloader
-from sql_extractor import SqlExtractor
-from file_cleaner import FileCleaner
-from data_importer import DataImporter
-from state_processor import StateProcessor
-from clusterer import Clusterer
-from cluster_evaluator import ClusterEvaluator
-from top_petitions import TopPetitions
-from topic_extractor import TopicExtractor
-from choropleth import ChoroplethMap
+from wethepeopletoolkit.downloader import Downloader
+from wethepeopletoolkit.sql_extractor import SqlExtractor
+from wethepeopletoolkit.file_cleaner import FileCleaner
+from wethepeopletoolkit.data_importer import DataImporter
+from wethepeopletoolkit.state_processor import StateProcessor
+from wethepeopletoolkit.clusterer import Clusterer
+from wethepeopletoolkit.cluster_evaluator import ClusterEvaluator
+from wethepeopletoolkit.top_petitions import TopPetitions
+from wethepeopletoolkit.topic_extractor import TopicExtractor
+from wethepeopletoolkit.choropleth import ChoroplethMap
 
 class SortedCommandGroup(click.Group):
   def list_commands(self, ctx):

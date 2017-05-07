@@ -1,8 +1,8 @@
 import pandas
 import numpy as np
 import os
-from spark_starter import SparkStarter
-from hive_checker import HiveChecker
+from wethepeopletoolkit.spark_starter import SparkStarter
+from wethepeopletoolkit.hive_checker import HiveChecker
 
 class StateProcessor:
   def __init__(self, spark_home, data_directory):
@@ -25,6 +25,9 @@ class StateProcessor:
       signatures_by_state = signatures.join(states, signatures.state == states.abb).select("signatures.*", "states.population").groupBy("state", "petition_id")
 
       population_adjusted_engagement_matrix = signatures_by_state.agg(((count("*") * 1000) / first(col("population"))).alias('adjusted_count')).groupBy("state").pivot("petition_id").agg(expr("first(adjusted_count)")).fillna(0).toPandas()
+      if not os.path.exists(config.data_directory):
+        os.makedirs(config.data_directory)
+
       population_adjusted_engagement_matrix.sort('state').to_csv(csv_path, header = True)
 
       return population_adjusted_engagement_matrix

@@ -1,6 +1,6 @@
-from spark_starter import SparkStarter
-from hive_checker import HiveChecker
-from clusterer import Clusterer
+from wethepeopletoolkit.spark_starter import SparkStarter
+from wethepeopletoolkit.hive_checker import HiveChecker
+from wethepeopletoolkit.clusterer import Clusterer
 
 class TopPetitions:
   def __init__(self, spark_home):

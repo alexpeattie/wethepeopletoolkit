@@ -3,8 +3,8 @@ import click
 import os
 import logging
 import sys
-from spark_starter import SparkStarter
-from hive_checker import HiveChecker
+from wethepeopletoolkit.spark_starter import SparkStarter
+from wethepeopletoolkit.hive_checker import HiveChecker
 
 class DataImporter:
   def __init__(self, data_directory, spark_home, force):

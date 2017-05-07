@@ -1,5 +1,5 @@
 import click
-from clusterer import Clusterer
+from wethepeopletoolkit.clusterer import Clusterer
 
 class ClusterEvaluator:
   def __init__(self, clusterer_args):
