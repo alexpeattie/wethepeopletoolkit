@@ -8,14 +8,14 @@ except ImportError:
 
 setup(
   name = "wethepeopletoolkit",
-  version = "1.2",
+  version = "1.3",
   author = "Alex Peattie",
   author_email = "me@alexpeattie.com",
   description = ("A project for analyzing and visualizing data from the Obama-era 'We the People' petitions site."),
   license = "MIT",
   keywords = "wethepeople petitions datascience analysis",
   url = "https://github.com/alexpeattie/wethepeopletoolkit",
-  download_url = 'https://github.com/alexpeattie/wethepeopletoolkit/archive/1.2.tar.gz',
+  download_url = 'https://github.com/alexpeattie/wethepeopletoolkit/archive/1.3.tar.gz',
   install_requires=[
     'bs4',
     'click',
