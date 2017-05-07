@@ -14,7 +14,7 @@ class DataImporter:
 
   def create_tables(self):
     sc, sqlContext = SparkStarter(self.spark_home).start()
-    from pyspark.sql.functions import col
+    from pyspark.sql.functions import col, expr
     
     # Check Hive is accessible
     if not HiveChecker(sqlContext).check_connectivity():
@@ -47,6 +47,6 @@ class DataImporter:
     click.echo(click.style(u'✔ Success', fg='green'))
 
     click.echo("\nImporting petitions data...")
-    petitions = sqlContext.read.csv(files['wtp_data_petitions.csv']).select(col('_c1').alias('id'), col('_c2').alias('title'), col('_c4').alias('body'))
+    petitions = sqlContext.read.csv(files['wtp_data_petitions.csv']).select(col('_c1').alias('id'), col('_c3').alias('title'), col('_c4').alias('body'))
     petitions.write.mode("overwrite").saveAsTable("wtp_data_petitions")
     click.echo(click.style(u'✔ Success', fg='green'))

@@ -1,0 +1,10 @@
+bs4
+click
+pandas
+numpy
+bitstring
+base58
+matplotlib
+findspark
+sklearn
+scipy
