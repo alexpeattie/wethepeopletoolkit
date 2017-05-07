@@ -18,8 +18,8 @@ setup(
   description = ("A project for analyzing and visualizing data from the Obama-era 'We the People' petitions site."),
   license = "MIT",
   keywords = "wethepeople petitions datascience analysis",
-  url = "https:/github.com/alexpeattie/wethepeopletoolkit",
-  download_url = 'https:/github.com/alexpeattie/wethepeopletoolkit/archive/1.0.tar.gz',
+  url = "https://github.com/alexpeattie/wethepeopletoolkit",
+  download_url = 'https://github.com/alexpeattie/wethepeopletoolkit/archive/1.0.tar.gz',
   install_requires=[
     'bs4',
     'click',
