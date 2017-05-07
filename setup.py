@@ -5,7 +5,9 @@ import os
 def read(fname):
   return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
-if "pyqt" not in sys.modules:
+try:
+  from PyQt4.QtCore import QT_VERSION_STR
+except ImportError:
   sys.exit("PyQt4 is required to install this package (see README.md for installation instructions)")
 
 setup(
