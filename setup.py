@@ -28,9 +28,9 @@ setup(
     'sklearn',
     'scipy'
   ],
-  pymodules=['main'],
+  pymodules=['wethepeopletoolkit'],
   entry_points='''
     [console_scripts]
-    wethepeopletoolkit=main:cli
+    wethepeopletoolkit=wethepeopletoolkit:cli
   '''
 )
