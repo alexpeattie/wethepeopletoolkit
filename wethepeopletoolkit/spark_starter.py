@@ -1,4 +1,5 @@
 import click
+import sys
 
 class SparkStarter:
   def __init__(self, spark_home):
@@ -19,7 +20,8 @@ class SparkStarter:
     import pyspark
     sc = pyspark.SparkContext(appName="weThePeople")
     if not sc.version[0] == '2':
-      click.echo(click.style("Warning: Spark 1.x is not supported by the toolkit, which may lead to errors or crashes. Please upgrade to Spark 2.0+"))
+      click.echo(click.style("Fatal: Spark 1.x is not supported by the toolkit. Please upgrade to Spark 2.0+", fg='red'))
+      sys.exit(1)
 
     from pyspark.sql import HiveContext
     sqlContext = HiveContext(sc)
