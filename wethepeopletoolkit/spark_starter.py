@@ -15,9 +15,11 @@ class SparkStarter:
         click.echo(click.style('Fatal: looks like there was an error finding Spark. You might have to manually specify your Spark directory with the --spark-home option.', fg='red'))
       return
 
+
     import pyspark
-    from pyspark.sql.session import SparkSession
     sc = pyspark.SparkContext(appName="weThePeople")
+    if not sc.version[0] == '2':
+      click.echo(click.style("Warning: Spark 1.x is not supported by the toolkit, which may lead to errors or crashes. Please upgrade to Spark 2.0+"))
 
     from pyspark.sql import HiveContext
     sqlContext = HiveContext(sc)
